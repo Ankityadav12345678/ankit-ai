@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-# 🔒 Ab key yahan nahi, Render ke Environment se automatic load hogi!
+# 🔒 Key yahan nahi rahegi, Render automatic background se uthayega
 API_KEY = os.environ.get("GEMINI_API_KEY")
 BOT_TOKEN = "8896347343:AAGgQkLDpLx8mJe4zEqD5Csyqdg-VFJuvs8"
 
@@ -19,7 +19,7 @@ def home():
             chat_id = update["message"]["chat"]["id"]
             user_text = update["message"]["text"]
             
-            # Google API Request Structure with Full Details & Good Qualities
+            # Full Biodata in System Instruction
             payload = {
                 "contents": [{
                     "parts": [{"text": user_text}]
