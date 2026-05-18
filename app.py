@@ -1,15 +1,8 @@
 import requests
 import json
 from flask import Flask, request, jsonify
-from pyngrok import ngrok
 
 app = Flask(__name__)
-
-# Automatically create a public global link
-public_url = ngrok.connect(5000).public_url
-print("\n" + "="*50)
-print(f"👑 GLOBAL LINK FOR FRIENDS: {public_url}")
-print("="*50 + "\n")
 
 API_KEY = "AIzaSyCy-deh-OU6ELDhTpT4rxqRMaNmQCKhrFs"
 URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={API_KEY}"
@@ -76,4 +69,4 @@ def chat():
         return jsonify({"reply": "Bhai error aaya, ek baar check karo."})
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(host='0.0.0.0', port=5000)
