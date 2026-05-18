@@ -4,11 +4,11 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-# ⚠️ Yahan "" ke andar apni vahi asli sahi wali API Key dhyan se paste karo
-API_KEY = "AIzaSyCy-deh-OU6ELDhTpT4rxqRMaNmQCKhrFs"
+# ⚠️ Yahan apni ekdum NAYI wali safe API Key dhyan se paste karo
+API_KEY = "AIzaSyCoy4CG8vHCXkFp9SG7QREVtVunOomFBkY"
 BOT_TOKEN = "8896347343:AAGgQkLDpLx8mJe4zEqD5Csyqdg-VFJuvs8"
 
-# Ekdum sahi model (gemini-2.5-flash) aur exact functional endpoint
+# Ekdum solid working combo (v1beta + gemini-2.5-flash) जो Ankit AI के लिए परफेक्ट है
 URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={API_KEY}"
 
 @app.route('/', methods=['GET', 'POST'])
