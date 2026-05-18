@@ -1,14 +1,14 @@
 import requests
 import json
+import os  # System se secret key uthane ke liye
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-# ⚠️ Yahan apni ekdum NAYI wali safe API Key dhyan se paste karo
-API_KEY = "AIzaSyCoy4CG8vHCXkFp9SG7QREVtVunOomFBkY"
+# 🔒 Ab key yahan nahi, Render ke Environment se automatic load hogi!
+API_KEY = os.environ.get("GEMINI_API_KEY")
 BOT_TOKEN = "8896347343:AAGgQkLDpLx8mJe4zEqD5Csyqdg-VFJuvs8"
 
-# Ekdum solid working combo (v1beta + gemini-2.5-flash) जो Ankit AI के लिए परफेक्ट है
 URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={API_KEY}"
 
 @app.route('/', methods=['GET', 'POST'])
@@ -19,7 +19,6 @@ def home():
             chat_id = update["message"]["chat"]["id"]
             user_text = update["message"]["text"]
             
-            # Google API Request Structure
             payload = {
                 "contents": [{
                     "parts": [{"text": user_text}]
@@ -31,7 +30,6 @@ def home():
                 response = requests.post(URL, json=payload, headers=headers, timeout=15)
                 gemini_data = response.json()
                 
-                # Jawab ko extract karna
                 if 'candidates' in gemini_data and len(gemini_data['candidates']) > 0:
                     bot_reply = gemini_data['candidates'][0]['content']['parts'][0]['text']
                 elif 'error' in gemini_data:
@@ -42,7 +40,6 @@ def home():
             except Exception as e:
                 bot_reply = f"Server Connection error: {str(e)}"
 
-            # Telegram par answer bhejna
             telegram_url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
             telegram_payload = {"chat_id": chat_id, "text": bot_reply}
             requests.post(telegram_url, json=telegram_payload)
