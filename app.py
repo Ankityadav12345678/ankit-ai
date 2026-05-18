@@ -4,12 +4,12 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-# ⚠️ Yahan " " ke andar apni vahi asli sahi wali API Key dhyan se paste karo
+# ⚠️ Yahan "" ke andar apni vahi asli sahi wali API Key dhyan se paste karo
 API_KEY = "AIzaSyCy-deh-OU6ELDhTpT4rxqRMaNmQCKhrFs"
 BOT_TOKEN = "8896347343:AAGgQkLDpLx8mJe4zEqD5Csyqdg-VFJuvs8"
 
-# Google ka ekdum latest working combo (v1beta + gemini-1.5-flash)
-URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={API_KEY}"
+# Ekdum sahi model (gemini-2.5-flash) aur exact functional endpoint
+URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={API_KEY}"
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
