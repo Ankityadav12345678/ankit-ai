@@ -19,10 +19,16 @@ def home():
             chat_id = update["message"]["chat"]["id"]
             user_text = update["message"]["text"]
             
+            # Google API Request Structure with System Instruction
             payload = {
                 "contents": [{
                     "parts": [{"text": user_text}]
-                }]
+                }],
+                "systemInstruction": {
+                    "parts": [{
+                        "text": "Your name is Ankit-ai. You are a smart, friendly, and helpful AI assistant. You were created and developed by Ankit. Whenever anyone asks about your owner, creator, developer, or father, always proudly reply that Ankit is your owner and creator. Always answer in a cool and respectful mix of Hindi and English (Hinglish)."
+                    }]
+                }
             }
             headers = {"Content-Type": "application/json"}
             
