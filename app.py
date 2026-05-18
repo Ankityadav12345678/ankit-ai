@@ -4,11 +4,12 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-# ⚠️ YAHAN APNI KAL WALI ASLI API KEY PASTE KARNA
+# ⚠️ Agar tumhari kal wali API Key isse alag hai toh yahan badal dena
 API_KEY = "AIzaSyCy-deh-OU6ELDhTpT4rxqRMaNmQCKhrFs"
 BOT_TOKEN = "8896347343:AAGgQkLDpLx8mJe4zEqD5Csyqdg-VFJuvs8"
 
-URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={API_KEY}"
+# Yahan maine model ka naam ekdum sahi (gemini-1.5-flash-latest) kar diya hai
+URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key={API_KEY}"
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -34,7 +35,7 @@ def home():
                 elif 'error' in gemini_data:
                     bot_reply = f"Google API Error: {gemini_data['error']['message']}"
                 else:
-                    bot_reply = f"Bhai Gemini se sahi response nahi aaya."
+                    bot_reply = "Bhai Gemini se response sahi nahi aaya."
                     
             except Exception as e:
                 bot_reply = f"Connection error: {str(e)}"
