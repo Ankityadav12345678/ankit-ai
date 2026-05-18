@@ -4,12 +4,12 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-# ⚠️ Yahan " " ke andar apni kal wali asli API Key dhyan se paste kar do
+# ⚠️ Yahan " " ke andar apni vahi asli sahi wali API Key dhyan se paste karo
 API_KEY = "AIzaSyCy-deh-OU6ELDhTpT4rxqRMaNmQCKhrFs"
 BOT_TOKEN = "8896347343:AAGgQkLDpLx8mJe4zEqD5Csyqdg-VFJuvs8"
 
-# Ekdum universal stable endpoint jo kabhi fail nahi hota
-URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={API_KEY}"
+# Google ka ekdum latest working combo (v1beta + gemini-1.5-flash)
+URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={API_KEY}"
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -19,7 +19,7 @@ def home():
             chat_id = update["message"]["chat"]["id"]
             user_text = update["message"]["text"]
             
-            # Google standard structure
+            # Google API Request Structure
             payload = {
                 "contents": [{
                     "parts": [{"text": user_text}]
@@ -31,7 +31,7 @@ def home():
                 response = requests.post(URL, json=payload, headers=headers, timeout=15)
                 gemini_data = response.json()
                 
-                # Jawab ko dhyan se extract karna
+                # Jawab ko extract karna
                 if 'candidates' in gemini_data and len(gemini_data['candidates']) > 0:
                     bot_reply = gemini_data['candidates'][0]['content']['parts'][0]['text']
                 elif 'error' in gemini_data:
@@ -42,7 +42,7 @@ def home():
             except Exception as e:
                 bot_reply = f"Server Connection error: {str(e)}"
 
-            # Telegram par answer push karna
+            # Telegram par answer bhejna
             telegram_url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
             telegram_payload = {"chat_id": chat_id, "text": bot_reply}
             requests.post(telegram_url, json=telegram_payload)
