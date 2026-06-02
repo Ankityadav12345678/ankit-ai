@@ -7,9 +7,9 @@ app = Flask(__name__)
 
 # 1. API Keys Render ke system se apne aap uthegi
 API_KEY = os.environ.get("GEMINI_API_KEY")
-BOT_TOKEN = "8896347343:AAGgQkLdPLx8mJe4zEd..." # Aapka asli token pehle se set hai
+BOT_TOKEN = "8896347343:AAGgQkLDpLx8mJe4zEqD5Csyqdg-VFJuvs8"
 
-# Gemini 2.5 Flash ka sahi URL permanent memory ke sath chat karne ke liye
+# Gemini 2.5 Flash ka sahi URL
 URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={API_KEY}"
 
 @app.route('/', methods=['GET', 'POST'])
@@ -40,8 +40,8 @@ def home():
                     bot_reply = res_data['candidates'][0]['content']['parts'][0]['text']
                 else:
                     bot_reply = "Bhai thoda server load hai, 1 minute baad try karo!"
-                    
-                # Telegram par wapas reply bhej rahe hain
+                
+                # Telegram par wapass reply bhej rahe hain (Corrected spelling here)
                 tele_url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
                 requests.post(tele_url, json={"chat_id": chat_id, "text": bot_reply})
                 
